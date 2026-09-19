@@ -1,33 +1,57 @@
-# Multi-Tenant RAG
+# 🏢 Privacy-First Multi-Tenant Local RAG System
 
-A local multi-tenant knowledge assistant with a FastAPI backend, Qdrant local storage, Ollama embeddings/chat, and a React frontend.
+A privacy-focused, fully local Retrieval-Augmented Generation (RAG) platform designed for multi-tenant architectures. It isolates each tenant's documents, vector embeddings, and search spaces using **Qdrant payload filtering** and **local Ollama models**, guaranteeing zero cross-tenant data leakage without relying on external cloud APIs.
 
-## Structure
+---
 
-- `backend/main.py` - tenant-scoped ingest and query API
-- `frontend/` - Vite + React TypeScript workspace UI
-- `qdrant_test_storage/` - local vector data
+## 📸 Visual Walkthrough
 
-## Run
+### 1. Web Application Overview
+The main interface features an active tenant selector, file ingestion tools, and an isolated chat environment.
 
-Start Ollama first and make sure these models are available:
+![Application Dashboard](assets/Screenshot 2026-09-19 102621.png)
 
-```powershell
+---
+
+### 2. Document Ingestion Pipeline
+Tenants upload `.pdf` or `.txt` files directly through the dashboard. Documents are automatically chunked, embedded via local models, and indexed under the active tenant's context.
+
+![Upload Documents Page](assets/Screenshot 2026-09-19 102640.png)
+
+---
+
+### 3. Isolated Tenant Code & Session Generation
+Each tenant operates in complete logical isolation. Dynamic tenant tagging enforces boundary checks across every upload and retrieval request.
+
+![Generated Tenant Session](assets/Screenshot 2026-09-19 102705.png.png)
+
+---
+
+### 4. Vector & Database Inspection
+Stored document chunks, metadata, and tenant IDs indexed inside the database. Records remain partitioned so queries from one tenant cannot see data from another.
+
+![Database Output](assets/Screenshot 2026-09-19 103840.png)
+
+---
+
+## ⚡ Core Architecture
+
+* **Multi-Tenant Isolation:** Enforced via Qdrant payload filters (`tenant_id: <id>`) and dedicated keyword indices.
+* **100% Local Inference:**
+  * **Embeddings:** `nomic-embed-text` (768-dim) via Ollama.
+  * **LLM Engine:** `llama3.2` via Ollama.
+* **Persistent Storage:** Disk-backed Qdrant collection with crash-resilient locks.
+* **Document Parser:** PyPDF and LangChain recursive character text splitters.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+* Python 3.10+
+* [Ollama](https://ollama.com/) running locally
+
+Pull required models:
+```bash
+ollama run llama3.2
 ollama pull nomic-embed-text
-ollama pull llama3.2
-```
-
-In one terminal from the repository root:
-
-```powershell
-.\Scripts\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
-```
-
-In another terminal:
-
-```powershell
-Set-Location frontend
-npm run dev
-```
-
-Open `http://localhost:5173`. The API uses the `X-Tenant-ID` header to keep every query and upload isolated to the selected tenant.
