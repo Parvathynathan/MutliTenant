@@ -30,7 +30,7 @@ Each tenant operates in complete logical isolation. Dynamic tenant tagging enfor
 ### 4. Vector & Database Inspection
 Stored document chunks, metadata, and tenant IDs indexed inside the database. Records remain partitioned so queries from one tenant cannot see data from another.
 
-![Database Output](assets/DatabaseData.png)
+![Database Output](assets/Databasedata.png)
 
 ---
 
