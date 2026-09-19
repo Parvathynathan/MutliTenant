@@ -1,0 +1,35 @@
+# Python caches and local runtime files
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local Python virtual environment files
+/Include/
+/Lib/
+/Scripts/
+/etc/
+/share/
+/pyvenv.cfg
+
+# Local vector database data
+/qdrant_storage/
+/qdrant_test_storage/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# React/Vite generated files
+/frontend/node_modules/
+/frontend/dist/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
