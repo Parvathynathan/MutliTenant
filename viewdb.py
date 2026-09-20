@@ -22,5 +22,5 @@ else:
         print(f"ID: {record.id}")
         print(f"Tenant: {record.payload.get('tenant_id')}")
         print(f"File: {record.payload.get('filename')}")
-        print(f"Snippet: {record.payload.get('text')[:120]}...")
+        print(f"Snippet: {record.payload.get('text')}...")
         print("-" * 50)
