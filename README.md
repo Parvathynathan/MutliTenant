@@ -1,4 +1,4 @@
-# 🏢  Multi-Tenant Local RAG System![alt text](image.png)
+# 🏢  Multi-Tenant Local RAG System
 
 A privacy-focused, fully local Retrieval-Augmented Generation (RAG) platform designed for multi-tenant architectures. It isolates each tenant's documents, vector embeddings, and search spaces using **Qdrant payload filtering** and **local Ollama models**, guaranteeing zero cross-tenant data leakage without relying on external cloud APIs.
 
